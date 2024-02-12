@@ -7,9 +7,14 @@ load-context.!standalone:
 platform.windows:
   deps:
     - vcpkg:gtest @ static-md
+
 platform.!windows:
   deps:
     - vcpkg:gtest
+
+platform.linux|osx:
+  cxx-global-link-deps:
+    - pthread
 
 deps:
   - ulib-env
