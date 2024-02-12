@@ -48,7 +48,10 @@ namespace ulib
 
 #else
         auto result = ::getenv(ulib::str(key).c_str());
-        return result ? ulib::u8(result) : std::nullopt;
+        if (result)
+            return ulib::u8(result);
+        else
+            return std::nullopt;
 #endif
     }
 
