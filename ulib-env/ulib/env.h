@@ -48,7 +48,7 @@ namespace ulib
 
 #else
         auto result = ::getenv(ulib::str(key).c_str());
-        return result ? result : std::nullopt;
+        return result ? ulib::u8(result) : std::nullopt;
 #endif
     }
 
@@ -71,7 +71,7 @@ namespace ulib
         // TODO: error handling on Unix
 
         if (value && !value->empty())
-            ::setenv(ulib::str(key).c_str(), ulib::str(*value).c_str());
+            ::setenv(ulib::str(key).c_str(), ulib::str(*value).c_str(), 1);
         else
             ::unsetenv(ulib::str(key).c_str());
 #endif
