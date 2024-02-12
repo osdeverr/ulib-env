@@ -1,0 +1,44 @@
+name: unit-tests
+
+on: push
+
+jobs:
+  run-unit-tests:
+    strategy:
+      matrix:
+        os:
+          - windows-latest
+          - ubuntu-20.04
+          # - macos-latest
+
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Re
+        uses: osdeverr/actions-setup-re@v4
+
+      # Cache the output and cache directories so we don't have to suffer
+      - name: Cache build outputs
+        uses: actions/cache@v3
+        with:
+          path: |
+            ./out
+            ./.re-cache
+          key: ${{ runner.os }}-re-build-${{ hashFiles('**/re.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-re-build-
+
+      # The run is split into two steps for cleaner output
+
+      - name: Build tests
+        uses: osdeverr/actions-build-re-target@v2
+        with:
+          targets: .tests # Make sure we only build .tests and not anything else
+      
+      - name: Run tests
+        uses: osdeverr/actions-run-re-target@v2
+        with:
+          target: .tests

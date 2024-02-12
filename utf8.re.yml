@@ -1,0 +1,4 @@
+cxxenv.msvc:
+  cxx-build-flags:
+    compiler:
+      - "/utf-8"

@@ -1,0 +1,19 @@
+type: executable
+name: ".tests"
+
+load-context.!standalone:
+  enabled: false
+
+platform.windows:
+  deps:
+    - vcpkg:gtest @ static-md
+platform.!windows:
+  deps:
+    - vcpkg:gtest
+
+deps:
+  - ulib-env
+
+config.debug:
+  cxx-compile-definitions:
+    ULIB_USE_DEBUG_RESOURCE: 1

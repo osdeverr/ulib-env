@@ -1,0 +1,5 @@
+type: static-library
+name: "ulib-env"
+
+deps:
+  - github:k2rate/ulib ^5.0.0 [/ulib]
